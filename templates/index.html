@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block content %}
+<div class="row my-2">
+  {% with messages = get_flashed_messages() %} {% if messages %}
+  <div class="alert alert-danger" role="alert">
+    {% for message in messages %} {{ message }} {% endfor %}
+  </div>
+  {% endif %} {% endwith %}
+</div>
+<div class="row my-2">
+
+  <div class="col-2"></div>
+  <div class="col-10">
+    <h3>Введите математическую формулу для вычисления</h3>
+    <h3>В формуле можно использовать функции из модуля math</h3>
+    <form class="form-group row" method="GET">
+      <div class="col-8">
+        <input type="text" class="form-control form-control-lg" placeholder="введите выражение" name="q" 
+          value="{{ request.args.get('q', '') }}" required>
+      </div>
+      <div class="col-auto">
+          <button type="submit" class="btn btn-secondary btn-lg">Рассчитать</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-2"></div>
+</div>
+
+{% if request.args.get('q') %}
+<div class="row my-2">
+  <div class="col-2"></div>
+  <div class="col-8">
+    <h2>{{ title }}</h2>
+    <h4>{{ result }}</h4>
+  </div>
+  <div class="col-2"></div>
+</div>
+{% endif %}
+{% endblock %}
